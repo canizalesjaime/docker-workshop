@@ -50,15 +50,22 @@ like Docker Hub for sharing images and orchestration support for scaling.
 \item \textbf{Consistency:} Ensures that applications run the same way regardless of the host environment (development, testing, production).
 \item \textbf{Portability:} Docker containers can run on any system with Docker installed, including on-premises, cloud, or hybrid setups.
 \item \textbf{Isolation:} Containers encapsulate applications and their dependencies, avoiding conflicts between different environments or applications.
-\item \textbf{Efficiency:} Lightweight compared to virtual machines (VMs), as they share the host OS kernel and require fewer resources.
-\item \textbf{Scalability:} Makes it easy to scale applications horizontally by running multiple container instances.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}\frametitle{Why use Docker?(Cont.)}
 \begin{itemize}
+\item \textbf{Efficiency:} Lightweight compared to virtual machines (VMs), as they share the host OS kernel and require fewer resources.
+\item \textbf{Scalability:} Makes it easy to scale applications horizontally by running multiple container instances.
 \item \textbf{Faster Development and Deployment:} Speeds up workflows with instant container creation and simplified testing across environments.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Why use Docker?(Cont.)}
+\begin{itemize}
 \item \textbf{Microservices Architecture:} Ideal for breaking down applications into smaller, manageable, and independently deployable services.
 \item \textbf{Reproducibility:} Developers can create a predictable environment using Dockerfiles and Docker Compose, reducing "it works on my machine" issues.
 \item \textbf{DevOps Integration:} Fits seamlessly into CI/CD pipelines for automated testing, integration, and deployment.
@@ -82,6 +89,12 @@ to interact with the Docker Daemon.
 \item \textbf{Docker Daemon}: The core background process that manages Docker
 objects like containers, images, networks, and volumes. It listens for API
 requests and communicates with the CLI and other components.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Docker Technical Terminology(Cont.)}
+\begin{itemize}
 \item \textbf{Docker Engine}: Refers to the system containing both Docker CLI and Docker Daemon
 \item \textbf{Docker Desktop}: Refers to the system containing both Docker Engine and a Docker graphical user interface(gui)
 \item \textbf{Docker Registry}: is a centralized storage and distribution system for Docker images.(version control for docker images) (we will use Dockerhub)
@@ -103,7 +116,7 @@ sharing the host system's kernel for efficiency.
 A Docker Image is a lightweight, immutable blueprint for creating containers. 
 It includes everything needed to run an application: code, dependencies, 
 libraries, and settings. Images are built in layers, stored in registries,
-and used to launch containers.(show example of a dockerfile)
+and used to launch containers.
 \end{block}
 \end{frame}
 
@@ -111,26 +124,26 @@ and used to launch containers.(show example of a dockerfile)
 \begin{frame}\frametitle{Dockerfile}
 \begin{block}{Dockerfile}
 A Dockerfile is a text file that contains instructions to build a Docker image.
-Each line in the Dockerfile specifies a step in the build process.(Go over image)
+Each line in the Dockerfile specifies a step in the build process.(show example of a dockerfile)(draw image for class)
 \end{block}
 \end{frame}
 
 
-\begin{frame}\frametitle{Basic Docker Commands For Start Up}
+\begin{frame}\frametitle{Basic Docker Commands For Start Up (in terminal)}
 \begin{itemize}
-\item docker build -t image-name . (creates an image named image-name from a dockerfile inside the cwd)
-\item docker run --name test-container -it --rm image-name (creates a containe named test-container from an image)  
-\item docker ps -a (Shows container ids)
-\item docker exec -it container-id bash (opens another terminal in a current container)
+\item \texttt{docker build -t image-name .}\\- Creates an image from a dockerfile inside the cwd
+\item \texttt{docker run --name test-container -it --rm image-name}\\- Creates a container named test-container from an image  
+\item \texttt{docker ps -a}\\- Shows container ids
+\item \texttt{docker exec -it container-id bash}\\- Opens another terminal in a current container
 \end{itemize}
 \end{frame}
     
 
-\begin{frame}\frametitle{Basic Docker Commands for Clean Up}
+\begin{frame}\frametitle{Basic Docker Commands for Clean Up (in terminal)}
 \begin{itemize}
-\item docker rm container-id (deletes a single container)
-\item docker container prune --force (deletes all unused containers)
-\item docker image prune --force (deletes all unused or dangling images)
+\item \texttt{docker rm container-id}\\- Deletes a single container
+\item \texttt{docker container prune --force}\\- Deletes all unused or dangling containers
+\item \texttt{docker image prune --force}\\- Deletes all unused or dangling images
 % \item docker volume prune --force (deletes all unused or dangling volumes)
 % \item docker network prune --force
 \end{itemize}
@@ -161,12 +174,12 @@ many examples of a docker registry(a very popular one).
 \end{frame}
 
 
-\begin{frame}\frametitle{DockerHub Commands}
+\begin{frame}\frametitle{DockerHub Commands (in terminal)}
 \begin{itemize}
-\item docker commit container-id repository-name:tag (to save changes on container to remote image)
-\item docker tag old-repository-name:tag dockerhub-username/new-repository-name:tag (add a tag to an image and/or give an image an alias)
-\item docker push dockerhub-username/repository-name:tag (update the remote copy of the image on the cloud)
-\item docker pull repository-name:tag (make a local copy of a remote image from the cloud)
+\item \texttt{docker commit container-id repository-name:tag}\\- To save changes on container to remote image
+\item \texttt{docker tag old-repository-name:tag dockerhub-username/new-repository-name:tag}\\- Add a tag to an image and/or give an image an alias
+\item \texttt{docker push dockerhub-username/repository-name:tag}\\- Update the remote copy of the image on the cloud
+\item \texttt{docker pull repository-name:tag}\\- Make a local copy of a remote image from the cloud
 \end{itemize}
 \end{frame}
 
@@ -174,23 +187,13 @@ many examples of a docker registry(a very popular one).
 \section{Conclusion}
 \begin{frame}\frametitle{Check out the Docker Examples provided in this repo}
 \begin{itemize}
-\item authentication for node and psql image
-\item opencv image
-\item python stuff added to image
+\item Authentication for node and psql image
+\item Opencv image
+\item Python stuff added to image
 \item Haskell image
-\item Extension name: latex workshop james yu, then check out file :./.vscode/settings.json to see how to include the docker image for latex
+\item Vscode extension name: latex workshop james yu\\ File: \texttt{./.vscode/settings.json}\\ Description: shows how to include the image for latex
 \end{itemize}
 \end{frame}
 
-
-% \begin{frame}\frametitle{Software Architecture}
-% \begin{figure}
-% \includegraphics[width=12cm]{software_architecture.png}
-% \begin{itemize}
-% \item Ensure everything is in the same vpc(virtual private network), like in picture.
-% \end{itemize}
-% \item Connect vscode Documentation: 
-% \end{figure}  
-% \end{frame}
 
 \end{document}
