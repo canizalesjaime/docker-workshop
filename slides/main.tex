@@ -1,0 +1,195 @@
+\documentclass{beamer}
+\mode<presentation>
+{
+\usetheme{Madrid}
+\usecolortheme{seagull}
+}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title[Docker Workshop]{Docker Workshop} 
+
+\author{Jaime Canizales} 
+\institute[Hunter College] 
+{
+City University of New York \\ 
+\medskip
+\textit{jaime.canizales@hunter.cuny.edu} 
+}
+\date{\today} 
+\begin{document}
+
+
+\begin{frame}
+\titlepage 
+\end{frame}
+
+
+\begin{frame} \frametitle{Overview} 
+\tableofcontents
+\end{frame}
+
+
+\section{Introduction}
+\begin{frame}\frametitle{What is Docker?}
+\begin{block}{Problem Statement}
+Docker is a platform for creating, running, and managing containers—lightweight,
+portable environments that package an application and its dependencies. 
+Containers ensure the app runs consistently across different systems. Unlike 
+virtual machines, containers share the host OS, making them faster and more 
+efficient. Docker simplifies development, testing, and deployment, with tools
+like Docker Hub for sharing images and orchestration support for scaling.
+\end{block}
+\end{frame}
+
+
+\begin{frame}\frametitle{Why use Docker?}
+\begin{itemize}
+\item \textbf{Consistency:} Ensures that applications run the same way regardless of the host environment (development, testing, production).
+\item \textbf{Portability:} Docker containers can run on any system with Docker installed, including on-premises, cloud, or hybrid setups.
+\item \textbf{Isolation:} Containers encapsulate applications and their dependencies, avoiding conflicts between different environments or applications.
+\item \textbf{Efficiency:} Lightweight compared to virtual machines (VMs), as they share the host OS kernel and require fewer resources.
+\item \textbf{Scalability:} Makes it easy to scale applications horizontally by running multiple container instances.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Why use Docker?(Cont.)}
+\begin{itemize}
+\item \textbf{Faster Development and Deployment:} Speeds up workflows with instant container creation and simplified testing across environments.
+\item \textbf{Microservices Architecture:} Ideal for breaking down applications into smaller, manageable, and independently deployable services.
+\item \textbf{Reproducibility:} Developers can create a predictable environment using Dockerfiles and Docker Compose, reducing "it works on my machine" issues.
+\item \textbf{DevOps Integration:} Fits seamlessly into CI/CD pipelines for automated testing, integration, and deployment.
+\item \textbf{Community and Ecosystem:} Extensive support with prebuilt images available on Docker Hub and integration with tools like Kubernetes for orchestration.
+\end{itemize}
+\end{frame}
+
+
+\section{Technical Information}
+\begin{frame}\frametitle{Installing Docker}
+\begin{itemize}
+\item \href{https://docs.docker.com/get-started/get-docker/}{Docker install link}   
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Docker Technical Terminology}
+\begin{itemize}
+\item \textbf{Docker Client(CLI)}: The command-line interface used by users
+to interact with the Docker Daemon.
+\item \textbf{Docker Daemon}: The core background process that manages Docker
+objects like containers, images, networks, and volumes. It listens for API
+requests and communicates with the CLI and other components.
+\item \textbf{Docker Engine}: Refers to the system containing both Docker CLI and Docker Daemon
+\item \textbf{Docker Desktop}: Refers to the system containing both Docker Engine and a Docker graphical user interface(gui)
+\item \textbf{Docker Registry}: is a centralized storage and distribution system for Docker images.(version control for docker images) (we will use Dockerhub)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Docker Container}
+\begin{block}{Docker Container}
+A Docker Container is a lightweight, portable runtime environment created from 
+a Docker image. It runs an application and its dependencies in isolation, 
+sharing the host system's kernel for efficiency.
+\end{block}
+\end{frame}
+
+
+\begin{frame}\frametitle{Docker Image}
+\begin{block}{Docker Image}
+A Docker Image is a lightweight, immutable blueprint for creating containers. 
+It includes everything needed to run an application: code, dependencies, 
+libraries, and settings. Images are built in layers, stored in registries,
+and used to launch containers.(show example of a dockerfile)
+\end{block}
+\end{frame}
+
+
+\begin{frame}\frametitle{Dockerfile}
+\begin{block}{Dockerfile}
+A Dockerfile is a text file that contains instructions to build a Docker image.
+Each line in the Dockerfile specifies a step in the build process.(Go over image)
+\end{block}
+\end{frame}
+
+
+\begin{frame}\frametitle{Basic Docker Commands For Start Up}
+\begin{itemize}
+\item docker build -t image-name . (creates an image named image-name from a dockerfile inside the cwd)
+\item docker run --name test-container -it --rm image-name (creates a containe named test-container from an image)  
+\item docker ps -a (Shows container ids)
+\item docker exec -it container-id bash (opens another terminal in a current container)
+\end{itemize}
+\end{frame}
+    
+
+\begin{frame}\frametitle{Basic Docker Commands for Clean Up}
+\begin{itemize}
+\item docker rm container-id (deletes a single container)
+\item docker container prune --force (deletes all unused containers)
+\item docker image prune --force (deletes all unused or dangling images)
+% \item docker volume prune --force (deletes all unused or dangling volumes)
+% \item docker network prune --force
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Dev Containers}
+\begin{itemize}
+\item Docker Dev Containers are containerized development environments created 
+using Docker. They package tools, dependencies, and configurations, providing
+consistent, isolated setups for coding across machines. Often used with tools
+like VS Code for seamless integration.
+\item Basically you can use vscode and a json file to specify configuration and run containers 
+without having to use the command line
+\item You can even include remote images in devcontainers.json
+by just adding one line. e.g. "image" : "matimoreyra/opencv:latest", (image with opencv for c++)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{DockerHub}
+\begin{block}{DockerHub}
+Docker Hub is a cloud-based repository for building, sharing, and managing Docker images. 
+Instead of storing and building image locally, you can build them on the cloud instead!
+Or you can create contianers from pre-existing images on DockerHub! DockerHub is one of the 
+many examples of a docker registry(a very popular one). 
+\end{block}
+\end{frame}
+
+
+\begin{frame}\frametitle{DockerHub Commands}
+\begin{itemize}
+\item docker commit container-id repository-name:tag (to save changes on container to remote image)
+\item docker tag old-repository-name:tag dockerhub-username/new-repository-name:tag (add a tag to an image and/or give an image an alias)
+\item docker push dockerhub-username/repository-name:tag (update the remote copy of the image on the cloud)
+\item docker pull repository-name:tag (make a local copy of a remote image from the cloud)
+\end{itemize}
+\end{frame}
+
+
+\section{Conclusion}
+\begin{frame}\frametitle{Check out the Docker Examples provided in this repo}
+\begin{itemize}
+\item authentication for node and psql image
+\item opencv image
+\item python stuff added to image
+\item Extension name: latex workshop james yu, then check out file :./.vscode/settings.json to see how to include the docker image for latex
+\end{itemize}
+\end{frame}
+
+
+% \begin{frame}\frametitle{Software Architecture}
+% \begin{figure}
+% \includegraphics[width=12cm]{software_architecture.png}
+% \begin{itemize}
+% \item Ensure everything is in the same vpc(virtual private network), like in picture.
+% \end{itemize}
+% \item Connect vscode Documentation: 
+% \end{figure}  
+% \end{frame}
+
+\end{document}
