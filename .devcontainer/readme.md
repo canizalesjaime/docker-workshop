@@ -20,4 +20,5 @@
 
 
 ## Notes:
-1. If you are running on windows computer, use vim run :set ff=unix then :wq 
+1. If you are running on windows computer, use vim run :set ff=unix then :wq
+2. Get rid of sudo in linux(or mac): sudo groupadd docker -> sudo gpasswd -a $USER docker -> newgrp docker 
